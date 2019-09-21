@@ -23,6 +23,9 @@ EGO DEATH:
 <body>
 <div id = "linkscroll">
     <a href = "text2php.php">text2php.php</a>
+    <a href = "duality.php">duality.php</a>
+    <a href = "dualityeditor.php">dualityeditor.php</a>
+
     <a href = "index.html">index.html</a>
     <a href = "pageeditor.html">pageeditor.html</a>
     <a href = "map.html">map.html</a>
