@@ -1,0 +1,77 @@
+{
+    "html": [
+        "README.md",
+        "index.html",
+        "list.html",
+        "map.html",
+        "pageeditor.html",
+        "scroll.html",
+        "treemaker.html"
+    ],
+    "javascript": [
+        "mapfactory.js"
+    ],
+    "iconsymbols": [
+        "bigarrow.svg",
+        "createicon.svg",
+        "deletebutton.svg",
+        "editor.svg",
+        "littlerotatelefticon.svg",
+        "littlerotaterighticon.svg",
+        "littlezoominicon.svg",
+        "littlezoomouticon.svg",
+        "mapicon.svg",
+        "memeicon.svg",
+        "movedownbutton.svg",
+        "moveupbutton.svg",
+        "navigator.svg",
+        "newbutton.svg",
+        "nextbutton.svg",
+        "prevbutton.svg",
+        "rotatelefticon.svg",
+        "rotaterighticon.svg",
+        "rotateslider.svg",
+        "savebutton.svg",
+        "scaleslider.svg",
+        "scrollicon.svg",
+        "smallarrow.svg",
+        "symbolicon.svg",
+        "tree.svg",
+        "uplinkicon.svg",
+        "zoominicon.svg",
+        "zoomouticon.svg"
+    ],
+    "symbols": [
+        "circle.svg",
+        "longarrow.svg",
+        "longthinarrow.svg",
+        "shortarrow.svg",
+        "x.svg"
+    ],
+    "data": [
+        "currentMap.txt",
+        "dna.txt",
+        "duality.txt",
+        "symbols.txt",
+        "treebranches.txt"
+    ],
+    "php": [
+        "deletebranch.txt",
+        "deletefile.txt",
+        "dir.txt",
+        "dnagenerator.txt",
+        "duality.txt",
+        "dualityeditor.txt",
+        "editor.txt",
+        "feed.txt",
+        "fileloader.txt",
+        "filesaver.txt",
+        "mkdir.txt",
+        "mkmap.txt",
+        "replicator.txt",
+        "text2php.txt",
+        "treebranchgenerator.txt",
+        "treereplicator.txt",
+        "upload.txt"
+    ]
+}
