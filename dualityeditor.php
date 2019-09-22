@@ -30,28 +30,37 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
     <tr>
         <td>top image url:</td>
         <td><input id = "topimageurl"/></td>
-        <td id = "topimageselect"></td>
+        <td class = "selectbutton" id = "topimageselect"></td>
     </tr>
     <tr>
         <td>bottom image url:</td>
         <td><input id = "bottomimageurl"/></td>
-        <td id = "bottomimageselect"></td>
+        <td  class = "selectbutton" id = "bottomimageselect"></td>
     </tr>
     <tr>
-        <td colspan="3" id = "scaleslider"><img/></td>
+        <td class = "sliderbar" colspan="3" id = "scaleslider">S C A L E<img/></td>
     </tr>
     <tr>
-        <td colspan="3" id = "rotateslider"><img/></td>
+        <td class = "sliderbar" colspan="3" id = "rotateslider">R O T A T E<img/></td>
     </tr>
 
 </table>
 </div>
 <script>
 
+select = "top";
+document.getElementById("topimageselect").style.backgroundColor="green";
+
 duality = JSON.parse(document.getElementById("datadiv").innerHTML);
 theta = duality.theta;
 alpha = Math.cos(theta)*Math.cos(theta);
 beta = Math.sin(theta)*Math.sin(theta);
+
+x = duality.top.x;
+y = duality.top.y;
+w = duality.top.w;
+angle = duality.top.angle;
+
 
 document.getElementById("bottomimage").src = duality.bottom.src;
 document.getElementById("topimage").src = duality.top.src;
@@ -92,19 +101,76 @@ mc = new Hammer(document.getElementById("square"));
 mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 mc.on("panleft panright panup pandown tap press", function(ev) {
 
-    theta = Math.PI/4 +(ev.deltaX/200);
-    redraw();
+    if(select == "top"){
+        duality.top.x = (x*square + ev.deltaX)/square;
+        duality.top.y = (y*square + ev.deltaY)/square;
+        document.getElementById("topimage").style.left = (x*square + ev.deltaX).toString() + "px";
+        document.getElementById("topimage").style.top = (y*square + ev.deltaY).toString() + "px";     
+    }
+    else{
+        duality.bottom.x = (x*square + ev.deltaX)/square;
+        duality.bottom.y = (y*square + ev.deltaY)/square;
+        document.getElementById("bottomimage").style.left = (x*square + ev.deltaX).toString() + "px";
+        document.getElementById("bottomimage").style.top = (y*square + ev.deltaY).toString() + "px";             
+    }
 
 });    
 
-function redraw(){
-
-    alpha = Math.cos(theta)*Math.cos(theta);
-    beta = Math.sin(theta)*Math.sin(theta);
-    document.getElementById("topimage").style.opacity = (alpha).toString();
-    document.getElementById("bottomimage").style.opacity = (beta).toString();
+mc1 = new Hammer(document.getElementById("scaleslider"));
+mc1.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+mc1.on("panleft panright panup pandown tap press", function(ev) {
     
+    if(select == "top"){
+        document.getElementById("topimage").style.width = (ev.deltaX + w*square).toString() + "px";
+        duality.top.w = (ev.deltaX + w*square)/square;
+    }
+    else{
+        document.getElementById("bottomimage").style.width = (ev.deltaX + w*square).toString() + "px";
+        duality.bottom.w = (ev.deltaX + w*square)/square;
+    }
+
+});
+
+mc2 = new Hammer(document.getElementById("rotateslider"));
+mc2.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+mc2.on("panleft panright panup pandown tap press", function(ev) {
+    
+    if(select == "top"){
+        document.getElementById("topimage").style.transform = "rotate(" + (angle + ev.deltaX*Math.PI/10).toString() + "deg)";
+        duality.top.angle = angle + ev.deltaX*Math.PI/10;
+    }
+    else{
+        document.getElementById("bottomimage").style.transform = "rotate(" + (angle + ev.deltaX*Math.PI/10).toString() + "deg)";
+        duality.bottom.angle = angle + ev.deltaX*Math.PI/10;    
+    }
+
+
+});
+
+
+document.getElementById("bottomimageselect").onclick = function(){
+    select = "bottom";
+    document.getElementById("topimageselect").style.backgroundColor="white";
+
+    document.getElementById("bottomimageselect").style.backgroundColor="green";
+    x = duality.bottom.x;
+    y = duality.bottom.y;
+    w = duality.bottom.w;
+    angle = duality.bottom.angle;
+
 }
+
+document.getElementById("topimageselect").onclick = function(){
+    select = "top";
+    document.getElementById("topimageselect").style.backgroundColor="green";
+    document.getElementById("bottomimageselect").style.backgroundColor="white";
+    x = duality.top.x;
+    y = duality.top.y;
+    w = duality.top.w;
+    angle = duality.top.angle;
+
+}
+
 </script>
 
 <style>
@@ -128,6 +194,21 @@ function redraw(){
 }
 #topimage{
     z-index:-1;
+}
+.selectbutton{
+    border:solid;
+    border-width:3px;
+    border-radius:3px;
+    width:1em;
+    height:1em;
+    cursor:pointer;
+}
+.selectbutton:hover{
+    border-color:green;
+}
+.sliderbar{
+    border:solid;
+    height:1em;
 }
 
 </style>
