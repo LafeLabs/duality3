@@ -23,6 +23,9 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
     <img id = "bottomimage"/>
     <img id = "topimage"/>
 </div>
+<div id = "notsquare">
+    <a href = "editor.php">editor.php</a>
+</div>
 <script>
 
 duality = JSON.parse(document.getElementById("datadiv").innerHTML);
@@ -35,9 +38,15 @@ document.getElementById("topimage").src = duality.top.src;
 
 if(window.innerWidth > window.innerHeight){
     square = window.innerHeight;
+    document.getElementById("notsquare").style.width = (window.innerWidth - square).toString() + "px";
+    document.getElementById("notsquare").style.height = (square).toString() + "px";
+    
 }
 else{
     square = window.innerWidth;
+    document.getElementById("notsquare").style.height = (window.innerHeight - square).toString() + "px";
+    document.getElementById("notsquare").style.width = (square).toString() + "px";
+    
 }
 
 document.getElementById("square").style.width = square.toString() + "px";
@@ -79,6 +88,12 @@ function redraw(){
 </script>
 
 <style>
+#notsquare{
+    position:absolute;
+    top:0px;
+    right:0px;
+    z-index:0;
+}
 #square{
     position:absolute;
     bottom:0px;

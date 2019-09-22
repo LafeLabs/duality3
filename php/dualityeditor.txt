@@ -19,67 +19,76 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
     }
 ?></div>
 
+<div id = "square">
+    <img id = "bottomimage"/>
+    <img id = "topimage"/>
+</div>
+<div id = "notsquare">
+    <a href = "editor.php">editor.php</a>
+
+<table>
+    <tr>
+        <td>top image url:</td>
+        <td><input id = "topimageurl"/></td>
+        <td id = "topimageselect"></td>
+    </tr>
+    <tr>
+        <td>bottom image url:</td>
+        <td><input id = "bottomimageurl"/></td>
+        <td id = "bottomimageselect"></td>
+    </tr>
+    <tr>
+        <td colspan="3" id = "scaleslider"><img/></td>
+    </tr>
+    <tr>
+        <td colspan="3" id = "rotateslider"><img/></td>
+    </tr>
+
+</table>
+</div>
 <script>
 
-theta = Math.PI/4;
+duality = JSON.parse(document.getElementById("datadiv").innerHTML);
+theta = duality.theta;
+alpha = Math.cos(theta)*Math.cos(theta);
+beta = Math.sin(theta)*Math.sin(theta);
 
-linkimages = document.getElementById("linktable").getElementsByTagName("img");
-for(var index = 0;index < linkimages.length;index++){
-    linkimages[index].style.width = (innerWidth/16).toString() + "px";
+document.getElementById("bottomimage").src = duality.bottom.src;
+document.getElementById("topimage").src = duality.top.src;
+
+if(window.innerWidth > window.innerHeight){
+    square = window.innerHeight;
+    document.getElementById("notsquare").style.width = (window.innerWidth - square).toString() + "px";
+    document.getElementById("notsquare").style.height = (square).toString() + "px";
+    
+}
+else{
+    square = window.innerWidth;
+    document.getElementById("notsquare").style.height = (window.innerHeight - square).toString() + "px";
+    document.getElementById("notsquare").style.width = (square).toString() + "px";
+    
 }
 
-    duality = JSON.parse(document.getElementById("datadiv").innerHTML);
-    url = document.getElementById("urldiv").innerHTML;
-    path = document.getElementById("pathdiv").innerHTML;
-    if(path.length > 1){
-        pathset = true;
-    }
-    else{
-        pathset = false;
-    }
-    if(url.length > 1){
-        urlset = true;
-    }
-    else{
-        urlset = false;
-    }
-    
-    if(urlset && !pathset){
-        data = encodeURIComponent(JSON.stringify(duality,null,"    "));
-        var httpc = new XMLHttpRequest();
-        var url = "filesaver.php";
-        httpc.open("POST", url, true);
-        httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        httpc.send("data=" + data + "&filename=" + "json/duality.txt");//send text to filesaver.php
-    }
-    if(urlset && pathset){
-        data = encodeURIComponent(JSON.stringify(duality,null,"    "));
-        var httpc = new XMLHttpRequest();
-        var url = "filesaver.php";
-        httpc.open("POST", url, true);
-        httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        httpc.send("data=" + data + "&filename=" + path);//send text to filesaver.php
-    }    
-    if(pathset){
-        document.getElementById("linkerlink").href += "?path=" + path; 
-        document.getElementById("alignerlink").href += "?path=" + path; 
-    }
-    
-    W = innerWidth;
-    for(var index = 0;index < duality.length;index++){
-        var newimg = document.createElement("IMG");
-        newimg.id = "i" + index.toString();
-        newimg.className = "boximg";
-        document.getElementById("page").appendChild(newimg);
-        newimg.src = duality[index].src;
-        newimg.style.left = (duality[index].x*W).toString() + "px";
-        newimg.style.top = (duality[index].y*W).toString() + "px";
-        newimg.style.width = (duality[index].w*W).toString() + "px";
-        newimg.style.transform = "rotate(" + duality[index].angle.toString() + "deg)";
-    }
+document.getElementById("square").style.width = square.toString() + "px";
+document.getElementById("square").style.height = square.toString() + "px";
 
-boxes = document.getElementById("page").getElementsByClassName("boximg");
-mc = new Hammer(document.getElementById("page"));
+
+document.getElementById("topimage").style.width = (square*duality.top.w).toString() + "px";
+document.getElementById("bottomimage").style.width = (square*duality.bottom.w).toString() + "px";
+document.getElementById("topimage").style.left = (square*duality.top.x).toString() + "px";
+document.getElementById("bottomimage").style.left = (square*duality.bottom.x).toString() + "px";
+document.getElementById("topimage").style.top = (square*duality.top.y).toString() + "px";
+document.getElementById("bottomimage").style.top = (square*duality.bottom.y).toString() + "px";
+
+
+document.getElementById("topimage").style.transform = "rotate(" + (duality.top.angle).toString() + "deg)";
+document.getElementById("bottomimage").style.transform = "rotate(" + (duality.bottom.angle).toString() + "deg)";
+
+document.getElementById("topimage").style.opacity = (alpha).toString();
+document.getElementById("bottomimage").style.opacity = (beta).toString();
+
+
+mc = new Hammer(document.getElementById("square"));
 mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 mc.on("panleft panright panup pandown tap press", function(ev) {
 
@@ -88,18 +97,38 @@ mc.on("panleft panright panup pandown tap press", function(ev) {
 
 });    
 
-
-redraw();
-    
 function redraw(){
-    boxes[0].style.opacity = Math.cos(theta)*Math.cos(theta).toString();
-    boxes[1].style.opacity = Math.sin(theta)*Math.sin(theta).toString();
+
+    alpha = Math.cos(theta)*Math.cos(theta);
+    beta = Math.sin(theta)*Math.sin(theta);
+    document.getElementById("topimage").style.opacity = (alpha).toString();
+    document.getElementById("bottomimage").style.opacity = (beta).toString();
     
 }
 </script>
 
-
 <style>
+#notsquare{
+    position:absolute;
+    top:0px;
+    right:0px;
+    z-index:0;
+}
+#square{
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    z-index:0;
+}
+#square img{
+    position:absolute;
+}
+#bottomimage{
+    z-index:-2;
+}
+#topimage{
+    z-index:-1;
+}
 
 </style>
 </body>
