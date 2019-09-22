@@ -18,6 +18,11 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
         echo file_get_contents("data/duality.txt");        
     }
 ?></div>
+<div id = "filediv" style = "display:none"><?php
+    if(isset($_GET['file'])){
+        echo $_GET['file'];
+    }
+?></div>
 
 <div id = "square">
     <img id = "bottomimage"/>
@@ -25,7 +30,7 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
 </div>
 <div id = "notsquare">
     <a href = "editor.php">editor.php</a>
-
+    <a href = "duality.php">duality.php</a>
 <table>
     <tr>
         <td>top image url:</td>
@@ -43,10 +48,20 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
     <tr>
         <td class = "sliderbar" colspan="3" id = "rotateslider">R O T A T E<img/></td>
     </tr>
+    <tr>
+        <td class = "button" colspan="3" id = "publishbutton">P U B L I S H<img/></td>
+    </tr>
 
 </table>
 </div>
 <script>
+
+if(document.getElementById("filediv").innerHTML.length > 0){
+    fileset = true;
+}
+else{
+    fileset = false;
+}
 
 select = "top";
 document.getElementById("topimageselect").style.backgroundColor="green";
@@ -171,6 +186,32 @@ document.getElementById("topimageselect").onclick = function(){
 
 }
 
+document.getElementById("topimageurl").onchange = function(){
+    document.getElementById("topimage").src = this.value;
+    duality.top.src = this.value;
+}
+document.getElementById("bottomimageurl").onchange = function(){
+    document.getElementById("bottomimage").src = this.value;
+    duality.bottom.src = this.value;
+}
+
+document.getElementById("publishbutton").onclick = function(){
+    if(fileset){
+        currentFile = path;
+    }
+    else{
+        currentFile = "data/duality.txt";
+    }
+    
+    data = encodeURIComponent(JSON.stringify(duality,null,"    "));
+    var httpc = new XMLHttpRequest();
+    var url = "filesaver.php";        
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+    httpc.send("data=" + data + "&filename=" + currentFile);//send text to filesaver.php    
+}
+
+
 </script>
 
 <style>
@@ -209,6 +250,19 @@ document.getElementById("topimageselect").onclick = function(){
 .sliderbar{
     border:solid;
     height:1em;
+}
+.button{
+    cursor:pointer;
+    border:solid;
+    border-width:3px;
+    border-radius:3px;
+    height:1em;
+}
+.button:hover{
+    background-color:green;
+}
+.button:active{
+    background-color:yellow;
 }
 
 </style>

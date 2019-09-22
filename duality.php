@@ -25,6 +25,8 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
 </div>
 <div id = "notsquare">
     <a href = "editor.php">editor.php</a>
+    <a href = "dualityeditor.php">dualityeditor.php</a>
+    <a href = "index.html">index.html</a>
 </div>
 <script>
 
