@@ -209,6 +209,14 @@ document.getElementById("publishbutton").onclick = function(){
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
     httpc.send("data=" + data + "&filename=" + currentFile);//send text to filesaver.php    
+
+    var timestamp = Math.round((new Date().getTime())/1000).toString();
+    var httpc2 = new XMLHttpRequest();
+    var url = "filesaver.php";        
+    httpc2.open("POST", url, true);
+    httpc2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+    httpc2.send("data=" + data + "&filename=feed/duality" + timestamp + ".txt");//send text to filesaver.php    
+    
 }
 
 

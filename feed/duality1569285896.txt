@@ -1,0 +1,17 @@
+{
+    "top": {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Portsmouth_Cathedral_Chancel%2C_Portsmouth%2C_Hampshire%2C_UK_-_Diliff.jpg/798px-Portsmouth_Cathedral_Chancel%2C_Portsmouth%2C_Hampshire%2C_UK_-_Diliff.jpg",
+        "x": 0.29473439964270265,
+        "y": 0.06331281664782486,
+        "w": 0.28384904185682985,
+        "angle": 180.32741831605412
+    },
+    "bottom": {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Portsmouth_Cathedral_2014.jpg/600px-Portsmouth_Cathedral_2014.jpg",
+        "x": 0.18329355608591888,
+        "y": 0.06157517899761339,
+        "w": 0.5,
+        "angle": 0
+    },
+    "theta": 0.785398
+}

@@ -13,6 +13,7 @@ mkdir("php");
 mkdir("jscode");
 mkdir("uploadimages");
 mkdir("symbols");
+mkdir("feed");
 
 if($makesymbol){
     mkdir("symbol");
