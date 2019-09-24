@@ -10,6 +10,14 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
 </head>
 <body>
+<div id = "filediv" style = "display:none"><?php
+  
+    if(isset($_GET['file'])){
+        echo $_GET['file'];
+    }
+
+    
+?></div>
 <div id = "datadiv" style = "display:none"><?php
     if(isset($_GET['file'])){
         echo file_get_contents($_GET['file']);
@@ -25,10 +33,17 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
 </div>
 <div id = "notsquare">
     <a href = "editor.php">editor.php</a>
-    <a href = "dualityeditor.php">dualityeditor.php</a>
+    <a href = "dualityeditor.php" id = "dualitylink">dualityeditor.php</a>
     <a href = "index.html">index.html</a>
+    <a href = "feed.php">feed.php</a>
+        <a href = "replicate.html">replicate.html</a>
 </div>
 <script>
+
+filename = document.getElementById("filediv").innerHTML;
+if(filename.length > 0){
+    document.getElementById("dualitylink").href += "?file=" + filename;
+}
 
 duality = JSON.parse(document.getElementById("datadiv").innerHTML);
 theta = duality.theta;

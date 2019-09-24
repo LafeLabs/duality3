@@ -31,6 +31,9 @@ PUBLIC DOMAIN, NO COPYRIGHTS, NO PATENTS.
 <div id = "notsquare">
     <a href = "editor.php">editor.php</a>
     <a href = "duality.php">duality.php</a>
+    <a href = "feed.php">feed.php</a>
+    <a href = "index.html">index.html</a>
+    <a href = "replicate.html">replicate.html</a>
 <table>
     <tr>
         <td>top image url:</td>
@@ -196,19 +199,13 @@ document.getElementById("bottomimageurl").onchange = function(){
 }
 
 document.getElementById("publishbutton").onclick = function(){
-    if(fileset){
-        currentFile = path;
-    }
-    else{
-        currentFile = "data/duality.txt";
-    }
-    
+
     data = encodeURIComponent(JSON.stringify(duality,null,"    "));
     var httpc = new XMLHttpRequest();
     var url = "filesaver.php";        
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-    httpc.send("data=" + data + "&filename=" + currentFile);//send text to filesaver.php    
+    httpc.send("data=" + data + "&filename=data/duality.txt");//send text to filesaver.php    
 
     var timestamp = Math.round((new Date().getTime())/1000).toString();
     var httpc2 = new XMLHttpRequest();
