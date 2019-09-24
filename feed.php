@@ -111,6 +111,18 @@ for(var index = 0;index < feed.length;index++){
         
     }
     
+    var newjsonbutton = document.createElement("IMG");
+    newjsonbutton.src = "iconsymbols/jsonicon.svg";
+    newbox.appendChild(newjsonbutton);
+    newjsonbutton.className = "jsonbutton";
+    newjsonbutton.onclick = function(){
+
+        localfilename = this.parentNode.getElementsByClassName("square")[0].id;
+        
+        location.href = localfilename;
+        
+    }
+    
 }
 
 
@@ -135,6 +147,15 @@ for(var index = 0;index < feed.length;index++){
     right:0px;
     z-index:1;
     cursor:pointer;
+}
+.jsonbutton{
+    position:absolute;
+    top:50%;
+    width:100px;
+    left:0px;
+    z-index:1;
+    cursor:pointer;
+    
 }
 .squarebox{
     border:solid;
